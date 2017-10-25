@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        p {
+            width: 200px;
+            height: 30px;
+            padding: 10px;
+            background: red;
+        }
+
+        a {
+            display: block;
+            width: 100%;
+            line-height: 30px;
+        }
+
+        .current {
+            background: yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="list">
+        <p>
+            <a href="javascript:;">1</a>
+        </p>
+        <p>
+            <a href="javascript:;">2</a>
+        </p>
+        <p>
+            <a href="javascript:;">3</a>
+        </p>
+        <p>
+            <a href="javascript:;">4</a>
+        </p>
+        <p>
+            <a href="javascript:;">5</a>
+        </p>
+        <p>
+            <a href="javascript:;">6</a>
+        </p>
+    </div>
+    <script>
+        document.querySelector('.list').addEventListener('click', function (event) {
+            event = event ? event : window.event;
+            var obj = event.srcElement ? event.srcElement : event.target;
+
+            //循序调用，直到找到p为止
+            while (obj.nodeName.toLocaleLowerCase() != 'p') {
+                obj = obj.parentNode;
+            }
+
+            Array.prototype.filter.call(obj.parentNode.children, function (element) {
+                if (obj != element) {
+                    element.classList.remove('current');
+                } else {
+                    element.classList.add('current')
+                }
+            })
+
+
+        }, false)
+    </script>
+</body>
+
+</html>
